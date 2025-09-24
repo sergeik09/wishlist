@@ -9,6 +9,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 class AddWishForm(ModelForm):
     class Meta:
-        model = Wish()
-        fields = ('title', 'description', 'image')
+        model = Wish
+        fields = ('title', 'desc', 'link', 'image')
 
