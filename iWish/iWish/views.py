@@ -1,11 +1,10 @@
-from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, AddWishForm
 from .models import Wish
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib import messages
+
 @login_required
 def home(request):
     pass
@@ -27,9 +26,8 @@ def register(request):
 
 @login_required
 def wish_list(request):
-    if request.method == 'GET':
-        user_id = request.user.id
-        wishes = Wish.objects.filter(user_id=user_id)
+    user_id = request.user.id
+    wishes = Wish.objects.filter(user_id=user_id)
     return render(request, 'wish_list.html', {'wishes': wishes})
 
 
@@ -70,10 +68,10 @@ def login_user(request):
     return render(request, 'login.html')
 
 
-def public_wish_list(request, user_id):
-    user = get_object_or_404(get_user_model(), id=user_id)
-    wishes = Wish.objects.filter(user=user)
-    return render(request, 'public_wish_list.html', {'wishes': wishes, 'wishlist_owner': user})
+# def public_wish_list(request, user_id):
+#     user = get_object_or_404(get_user_model(), id=user_id)
+#     wishes = Wish.objects.filter(user=user)
+#     return render(request, 'public_wish_list.html', {'wishes': wishes, 'wishlist_owner': user})
 
 @login_required
 def confirm_delete(request, wish_id):
